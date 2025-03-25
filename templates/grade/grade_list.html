@@ -6,6 +6,8 @@
     <button type="submit">search</button>
   </form>
   <br>
+    <div><a href="{% url 'gradecreate' %}"><button>新增</button></a></div>
+
   {% for grade in gradelist %}
     <span>班级：{{grade.grade_name}}-----班级编号：{{grade.grade_number}}</span>
     <button>编辑</button>
