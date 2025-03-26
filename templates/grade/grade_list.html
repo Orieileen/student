@@ -10,7 +10,7 @@
 
   {% for grade in gradelist %}
     <span>班级：{{grade.grade_name}}-----班级编号：{{grade.grade_number}}</span>
-    <button>编辑</button>
+    <a href="{% url 'gradeupdate' grade.pk %}"><button>编辑</button></a>
     <button>删除</button>
     <br>
   {% endfor %}
