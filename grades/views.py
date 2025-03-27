@@ -1,7 +1,7 @@
 from typing import Any
 from django.db.models.query import QuerySet
 from django.shortcuts import render
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.db.models import Q
 
 from .models import Grade
@@ -14,6 +14,7 @@ class Grade_ListView(ListView):
   fields = ['grade_name','grade_number']
   template_name = 'grade/grade_list.html'
   paginate_by = 1
+  # context_object_name的作用是自定义模板中的变量名，通常用于 ListView 等视图中，在模板里用 for 循环遍历数据
   context_object_name = 'gradelist'
 
   def get_queryset(self) -> QuerySet[Any]:
@@ -35,4 +36,9 @@ class Grade_UpdateView(UpdateView):
   model = Grade
   template_name = 'grade/grade_form.html'
   form_class = GradeForm
+  success_url = reverse_lazy('gradelist')
+
+class Grade_DeleteView(DeleteView):
+  model = Grade
+  template_name = 'grade/grade_delete_confirm.html'
   success_url = reverse_lazy('gradelist')

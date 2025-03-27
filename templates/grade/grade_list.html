@@ -11,7 +11,7 @@
   {% for grade in gradelist %}
     <span>班级：{{grade.grade_name}}-----班级编号：{{grade.grade_number}}</span>
     <a href="{% url 'gradeupdate' grade.pk %}"><button>编辑</button></a>
-    <button>删除</button>
+    <a href="{% url 'gradedelete' grade.pk %}"><button>删除</button></a>
     <br>
   {% endfor %}
   {% if page_obj.has_previous %}

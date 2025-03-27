@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="get" action="{% url 'gradelist' %}">
+  <span>班级名称：</span>
+  <input type="text" name="search" placeholder="enter class name...">
+  <button type="submit">search</button>
+</form>
+<br>
+<div><a href="{% url 'gradecreate' %}"><button>新增</button></a></div>
+
+{% for grade in gradelist %}
+<span>班级：{{grade.grade_name}}-----班级编号：{{grade.grade_number}}</span>
+<a href="{% url 'gradeupdate' grade.pk %}"><button>编辑</button></a>
+<a href="{% url 'gradedelete' grade.pk %}"><button>删除</button></a>
+<br>
+{% endfor %}
+{% if page_obj.has_previous %}
+<a href="?page=1">首页</a>
+<a href="?page={{ page_obj.revious_page_number }}">上一页</a>
+{% endif %}
+{% if page_obj.has_next %}
+<a href="?page={{ page_obj.next_page_number }}">下一页</a>
+<a href="?page={{ page_obj.paginator.num_pages }}">尾页</a>
+{% endif %}
+<!-- 当前页码 -->{{ page_obj.number }}/
+<!-- 总页数 -->{{ page_obj.paginator.num_pages }}
+
+{% endblock %}
