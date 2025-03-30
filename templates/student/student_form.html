@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if object %}
+<h1>
+  编辑学生信息
+</h1>
+<form action="" method="post">
+  {% csrf_token %}
+
+  {# 遍历表单中的每个字段 第一次是grade_name,第二次是grade_number #}
+  {% for field in form %}
+  
+  <div>
+    {# 1.{{ field.id_for_label }}:将label和下面的input绑定,就算点击label标签的元素,也能聚焦到input框#}
+    {# 2.{{ field.label }}:model里的显示字段:grade_name的verbose_name(也被叫做标签),来自form里面的model=Grade(见form.py),#}
+    <label for="{{ field.id_for_label }}">{{ field.label }}:</label>{# for第一次是grade_name,所以这里会显示：班级名称 #}
+
+    {# 下面为django自动渲染字段生成input框 #}
+    {# field第一次for是grade_name,该字段是charfield,生成text input框 #}
+    {# 如果field 第二次for字段类型是email,则生成一个email input框 #}
+    {{ field }}
+    <ul>
+      {% for error in field.errors %}
+      {{ error }}
+      {% endfor %}
+    </ul>
+  </div>
+  {% endfor %}
+  <button type="submit">保存</button>
+
+  {% else %}
+  <h1>
+    新建学生信息
+  </h1>
+  <form action="{% url 'studentcreate' %}" method="post">
+    {% csrf_token %}
+    {# 遍历表单中的每个字段 第一次是grade_name,第二次是grade_number #}
+    {% for field in form %}
+    <div>
+      {# 1.{{ field.id_for_label }}:将label和下面的input绑定,就算点击label标签的元素,也能聚焦到input框#}
+      {# 2.{{ field.label }}:model里的显示字段:grade_name的verbose_name(也被叫做标签),来自form里面的model=Grade(见form.py),#}
+      <label for="{{ field.id_for_label }}">{{ field.label }}:</label>{# for第一次是grade_name,所以这里会显示：班级名称 #}
+
+      {# 下面为django自动渲染字段生成input框 #}
+      {# field第一次for是grade_name,该字段是charfield,生成text input框 #}
+      {# 如果field 第二次for字段类型是email,则生成一个email input框 #}
+      {{ field }}
+      <ul>
+        {% for error in field.errors %}
+        {{ error }}
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+    <button type="submit">保存</button>
+    <a href="{% url 'studentlist' %}"><button type="button">取消</button></a>
+
+    {% endif %}
+  </form>
+  {% endblock %}

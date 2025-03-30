@@ -12,10 +12,10 @@ STUDENT_GENDER_CHOICES= [
 class Student(models.Model):
   student_name = models.CharField('学生姓名', max_length=100)
   student_gender = models.CharField('性别', choices=STUDENT_GENDER_CHOICES, max_length=1)
-  student_number = models.IntegerField('学号', max_length=100)
+  student_number = models.IntegerField('学号', unique=True)
 
   # 用 OneToOneField 主要是当你想给 User 模型扩展额外信息时，比如创建 Profile 个人信息表，每个 User 只能对应一个 Profile,
-  # User 是 Django 内置的用户模型，通常是 django.contrib.auth.models.User，它存储了用户的基本信息，比如用户名、密码、邮箱等。
+  # User 是 Django 内置的用户模型，对应auth_user表它存储了用户的基本信息，比如用户名、密码、邮箱等。
   user = models.OneToOneField(User, on_delete=models.CASCADE)
 
   # related_name='students':反向查询名,允许从 Grade 反向查询所有属于该年级的 Student。
