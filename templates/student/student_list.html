@@ -9,8 +9,10 @@
 <div><a href="{% url 'studentcreate' %}"><button>新增</button></a></div>
 
 {% for student in studentlist %}
-<span>班级：{{student.student_name}}-----学号：{{student.student_number}}</span>
-<a href=""><button>编辑</button></a>
+<span>姓名：{{student.student_name}}-----学号：{{student.student_number}}</span>
+<span>性别：{{ student.student_gender }}</span>
+<span>班级{{ student.student_grade }}</span>
+<a href="{% url 'studentupdate' student.pk %}"><button>编辑</button></a>
 <a href=""><button>删除</button></a>
 <br>
 {% endfor %}
