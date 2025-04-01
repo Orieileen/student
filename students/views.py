@@ -2,7 +2,7 @@ from django.forms import BaseModelForm
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 
@@ -93,3 +93,8 @@ class StudentUpdateView(UpdateView):
 # 在 form_valid() 方法中，你也使用了 redirect('studentlist') 来手动进行重定向。这个重定向会覆盖默认的 success_url，因为你明确指定了重定向的目标。success_url就可以删除了
 
 # 以上代码没有完整的后端验证, cleaned_date实际上并不是后端验证的一部分，而是数据提取的步骤。你从已经通过验证的表单数据中提取出具体字段的值。 cleaned_data 是经过 Django 自动验证后，保证数据格式和规则正确的字段数据。
+
+class StudentDeleteView(DeleteView):
+  model = Student
+  template_name = 'student/student_delete_confirm.html'
+  success_url = reverse_lazy('studentlist')

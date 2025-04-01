@@ -13,7 +13,7 @@
 <span>性别：{{ student.student_gender }}</span>
 <span>班级{{ student.student_grade }}</span>
 <a href="{% url 'studentupdate' student.pk %}"><button>编辑</button></a>
-<a href=""><button>删除</button></a>
+<a href="{% url 'studentdelete' student.pk %}"><button>删除</button></a>
 <br>
 {% endfor %}
 {% if page_obj.has_previous %}

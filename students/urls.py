@@ -6,5 +6,6 @@ from .views import *
 urlpatterns = [
   path('', StudentListView.as_view(), name='studentlist'),
   path('studentcreate/', StudentCreateView.as_view(), name='studentcreate'),
-  path('<int:pk>/stuedntupdate/', StudentUpdateView.as_view(), name='studentupdate')
+  path('<int:pk>/stuedntupdate/', StudentUpdateView.as_view(), name='studentupdate'),
+  path('<int:pk>/studentdelete/', StudentDeleteView.as_view(), name='studentdelete'),
 ]
